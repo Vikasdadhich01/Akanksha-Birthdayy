@@ -75,37 +75,43 @@ class Paper {
   }
 }
 
-const papers = Array.from(document.querySelectorAll('.paper'));
-
-papers.forEach(paper => {
-  const p = new Paper();
-  p.init(paper);
-});
-
-
-// ✅ BIRTHDAY COUNTDOWN TIMER (June 28, 2025)
+// ✅ Countdown Timer
 const countdownElement = document.getElementById("countdown");
+const birthday = new Date("June 28, 2025 00:00:00").getTime();
 
-if (countdownElement) {
-  const birthday = new Date("June 28, 2025 00:00:00").getTime();
+function updateCountdown() {
+  const now = new Date().getTime();
+  const distance = birthday - now;
 
-  function updateCountdown() {
-    const now = new Date().getTime();
-    const distance = birthday - now;
-
-    if (distance < 0) {
-      countdownElement.innerHTML = "🎉 Happy Birthday Akanksha! 🎉";
-      return;
-    }
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    countdownElement.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left`;
+  if (distance < 0) {
+    countdownElement.innerHTML = "🎉 Happy Birthday Akanksha! 🎉";
+    showPapers(); // 👈 reveal papers on birthday
+    return;
   }
 
-  setInterval(updateCountdown, 1000);
-  updateCountdown();
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  countdownElement.innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s left`;
 }
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// ✅ Initially hide all papers
+document.querySelectorAll('.paper').forEach(p => {
+  p.style.display = 'none';
+});
+
+// ✅ Function to show papers on June 28
+function showPapers() {
+  const papers = Array.from(document.querySelectorAll('.paper'));
+  papers.forEach(paper => {
+    paper.style.display = 'block';
+    const p = new Paper();
+    p.init(paper);
+  });
+}
+
