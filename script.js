@@ -75,7 +75,7 @@ class Paper {
   }
 }
 
-// ✅ Countdown Timer
+// 🎂 Birthday Countdown Timer
 const countdownElement = document.getElementById("countdown");
 const birthday = new Date("June 28, 2025 00:00:00").getTime();
 
@@ -83,9 +83,9 @@ function updateCountdown() {
   const now = new Date().getTime();
   const distance = birthday - now;
 
-  if (distance < 0) {
+  if (distance <= 0) {
     countdownElement.innerHTML = "🎉 Happy Birthday Akanksha! 🎉";
-    showPapers(); // 👈 reveal papers on birthday
+    showPapers(); // ⬅️ Reveal papers
     return;
   }
 
@@ -100,14 +100,9 @@ function updateCountdown() {
 setInterval(updateCountdown, 1000);
 updateCountdown();
 
-// ✅ Initially hide all papers
-document.querySelectorAll('.paper').forEach(p => {
-  p.style.display = 'none';
-});
-
-// ✅ Function to show papers on June 28
+// 👀 Function to Show Papers
 function showPapers() {
-  const papers = Array.from(document.querySelectorAll('.paper'));
+  const papers = document.querySelectorAll('.paper');
   papers.forEach(paper => {
     paper.style.display = 'block';
     const p = new Paper();
@@ -115,3 +110,5 @@ function showPapers() {
   });
 }
 
+// 🧪 FOR TESTING: Uncomment below line to force show now
+// showPapers();
